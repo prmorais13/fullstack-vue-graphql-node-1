@@ -17,10 +17,14 @@
               <div class="card-body">
                 <ul class="list-group">
                   <li class="list-group-item" v-for="prefix in prefixes" v-bind:key="prefix">
-                    {{prefix}}
-                    <button class="btn btn-info">
-                      <span class="fa fa-trash"></span>
-                    </button>
+                    <div class="row">
+                      <div class="col-md">{{prefix}}</div>
+                      <div class="col-md text-right">
+                        <button class="btn btn-info" v-on:click="deletePrefix(prefix)">
+                          <span class="fa fa-trash"></span>
+                        </button>
+                      </div>
+                    </div>
                   </li>
                 </ul>
                 <br />
@@ -50,10 +54,14 @@
               <div class="card-body">
                 <ul class="list-group">
                   <li class="list-group-item" v-for="sufix in sufixes" v-bind:key="sufix">
-                    {{ sufix }}
-                    <button class="btn btn-info">
-                      <span class="fa fa-trash"></span>
-                    </button>
+                    <div class="row">
+                      <div class="col-md">{{ sufix }}</div>
+                      <div class="col-md text-right">
+                        <button class="btn btn-info" v-on:click="deleteSufix(sufix)">
+                          <span class="fa fa-trash"></span>
+                        </button>
+                      </div>
+                    </div>
                   </li>
                 </ul>
                 <br />
@@ -124,11 +132,22 @@ export default {
       this.generate();
     },
 
+    deletePrefix(prefix) {
+      this.prefixes.splice(this.prefixes.indexOf(prefix), 1);
+      this.generate();
+    },
+
     addSufix(sufix) {
       this.sufixes.push(sufix);
       this.sufix = "";
       this.generate();
     },
+
+    deleteSufix(sufix) {
+      this.sufixes.splice(this.sufixes.indexOf(sufix), 1);
+      this.generate();
+    },
+
     generate() {
       this.domains = [];
       for (const prefix of this.prefixes) {
